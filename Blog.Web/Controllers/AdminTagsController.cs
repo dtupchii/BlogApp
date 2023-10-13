@@ -96,5 +96,24 @@ namespace Blog.Web.Controllers
             else
                 return RedirectToAction("Edit", new {id = editTagRequest.Id});
         }
+
+        [HttpPost]
+        public IActionResult Delete(EditTagRequest editTagRequest)
+        {
+            var tag = _db.Tags.Find(editTagRequest.Id);
+
+            if (tag != null)
+            {
+                _db.Tags.Remove(tag);
+                _db.SaveChanges();
+
+                //show a success notification
+                return RedirectToAction("List");
+            }
+            else
+
+                //show an error notification
+                return RedirectToAction("Edit", new { id = editTagRequest.Id });
+        }
     }
 }
