@@ -2,6 +2,7 @@
 using Blog.Web.Models.Domain;
 using Blog.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web.Controllers
 {
@@ -19,10 +20,11 @@ namespace Blog.Web.Controllers
             //just returning view
             return View();
         }
+
         [HttpPost]
-        public IActionResult Add(AddTagRequest addTagRequest)
+        public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
-            //creating a new tag object with values of VM object's properties (mapping)
+            //creating a new Tag object with values of VM object's properties (mapping)
             Tag tag = new Tag
             {
                 Name = addTagRequest.Name,
@@ -30,27 +32,27 @@ namespace Blog.Web.Controllers
             };
 
             //adding new tag to DB
-            _db.Tags.Add(tag);
-            _db.SaveChanges();
+            await _db.Tags.AddAsync(tag);
+            await _db.SaveChangesAsync();
 
             //going back to List View
             return RedirectToAction("List");
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
             //reading all Tags from DB
-            List<Tag> tagsFromDb = _db.Tags.ToList();
+            List<Tag> tagsFromDb = await _db.Tags.ToListAsync();
 
             return View(tagsFromDb);
         }
 
         [HttpGet]
-        public IActionResult Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             //finding an object in DB by Id
-            var tagFromDb = _db.Tags.FirstOrDefault(a => a.Id == id);
+            var tagFromDb = await _db.Tags.FirstOrDefaultAsync(a => a.Id == id);
 
             if (tagFromDb != null) 
             {
@@ -68,7 +70,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
             //"converting" VM object to Tag object
             var tag = new Tag
@@ -79,7 +81,7 @@ namespace Blog.Web.Controllers
             };
 
             //finding object in db by Id of tag object
-            var existingTag = _db.Tags.Find(tag.Id);
+            var existingTag = await _db.Tags.FindAsync(tag.Id);
 
             if (existingTag != null)
             {
@@ -88,7 +90,7 @@ namespace Blog.Web.Controllers
                 existingTag.DisplayName = tag.DisplayName;
 
                 //saving changes
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 //going back to List View
                 return RedirectToAction("List");
@@ -98,14 +100,14 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {
-            var tag = _db.Tags.Find(editTagRequest.Id);
+            var tag = await _db.Tags.FindAsync(editTagRequest.Id);
 
             if (tag != null)
             {
                 _db.Tags.Remove(tag);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 //show a success notification
                 return RedirectToAction("List");
