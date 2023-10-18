@@ -19,9 +19,18 @@ namespace Blog.Web.Repositories
             return blogPost;
         }
 
-        public Task<BlogPost?> DeleteAsync(Guid id)
+        public async Task<BlogPost?> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var existingPost = await _db.BlogPosts.FindAsync(id);
+
+            if (existingPost != null)
+            {
+                _db.BlogPosts.Remove(existingPost);
+                await _db.SaveChangesAsync();
+                return existingPost;
+            }
+
+            return null;
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllAsync()
