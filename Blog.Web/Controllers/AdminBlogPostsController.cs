@@ -42,7 +42,7 @@ namespace Blog.Web.Controllers
                 Content = addBlogPostRequest.Content,
                 ShortDescription = addBlogPostRequest.ShortDescription,
                 FeaturedImageUrl = addBlogPostRequest.FeaturedImageUrl,
-                UrlHendle = addBlogPostRequest.UrlHandle,
+                UrlHandle = addBlogPostRequest.UrlHandle,
                 PublishedDate = addBlogPostRequest.PublishedDate,
                 Author = addBlogPostRequest.Author,
                 Visible = addBlogPostRequest.Visible
@@ -95,7 +95,7 @@ namespace Blog.Web.Controllers
                     Author = existingPost.Author,
                     ShortDescription = existingPost.ShortDescription,
                     FeaturedImageUrl = existingPost.FeaturedImageUrl,
-                    UrlHandle = existingPost.UrlHendle,
+                    UrlHandle = existingPost.UrlHandle,
                     PublishedDate = existingPost.PublishedDate,
                     Visible = existingPost.Visible,
                     Tags = tags.Select(x => new SelectListItem
@@ -121,7 +121,7 @@ namespace Blog.Web.Controllers
                 PageTitle = editBlogPostRequest.PageTitle,
                 FeaturedImageUrl = editBlogPostRequest.FeaturedImageUrl,
                 ShortDescription = editBlogPostRequest.ShortDescription,
-                UrlHendle = editBlogPostRequest.UrlHandle,
+                UrlHandle = editBlogPostRequest.UrlHandle,
                 Author = editBlogPostRequest.Author,
                 Content = editBlogPostRequest.Content,
                 PublishedDate = editBlogPostRequest.PublishedDate,

@@ -56,7 +56,7 @@ namespace Blog.Web.Repositories
                 existingPost.PageTitle = blogPost.PageTitle;
                 existingPost.Content =  blogPost.Content;
                 existingPost.FeaturedImageUrl = blogPost.FeaturedImageUrl;
-                existingPost.UrlHendle = blogPost.UrlHendle;
+                existingPost.UrlHandle = blogPost.UrlHandle;
                 existingPost.Visible = blogPost.Visible;
                 existingPost.PublishedDate = blogPost.PublishedDate;
                 existingPost.Tags = blogPost.Tags;
