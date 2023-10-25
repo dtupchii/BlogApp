@@ -1,5 +1,5 @@
-﻿@using Blog.Web.Models.Domain;
-@model IEnumerable<BlogPost>
+﻿@using Blog.Web.Models.ViewModels;
+@model HomeViewModel
 
 
 @{
@@ -23,14 +23,29 @@
         </div>
     </div>
 </div>
+
+<div class="container mb-4">
+    <div class="row justify-content-center">
+        <div class="col-6 d-flex">
+            @if (Model != null && Model.Tags.Any())
+            {
+                foreach (var tag in Model.Tags)
+                {
+                    <span class="badge bg-dark me-1">@tag.Name</span>
+                }
+            }
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            @if (Model is not null && Model.Any())
+            @if (Model is not null && Model.Posts.Any())
             {
-                foreach(var post in Model)
+                foreach(var post in Model.Posts)
                 {
-                    <div class="mb-5 bg-light box-shadow p-5">
+                    <div class="mb-5 bg-light box-shadow p-4">
                         <img src="@post.FeaturedImageUrl"
                         alt="@post.Heading"
                         class="mb-2 d-block img-fluid"/>
