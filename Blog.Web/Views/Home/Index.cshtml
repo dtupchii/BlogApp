@@ -52,7 +52,7 @@
 
                         <p class="mb-4">@post.ShortDescription</p>
 
-                        <a class="btn btn-dark" href="#">Read More</a>
+                        <a class="btn btn-dark" asp-area="" asp-controller="Blogs" asp-action="Index" asp-route-urlHandle="@post.UrlHandle">Read More</a>
                     </div>
                 }
             }
