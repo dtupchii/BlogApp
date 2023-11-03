@@ -16,6 +16,7 @@ namespace Blog.Web.Controllers
         {
             _blogPostLikeRepository = blogPostLikeRepository;
         }
+
         [HttpPost]
         [Route("Add")]
         public async Task<IActionResult> AddLike([FromBody] AddLikeRequest addLikeRequest)
