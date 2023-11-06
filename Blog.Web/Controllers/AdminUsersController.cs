@@ -67,5 +67,22 @@ namespace Blog.Web.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user != null)
+            {
+                var idenityResult = await _userManager.DeleteAsync(user);
+
+                if (idenityResult is not null && idenityResult.Succeeded)
+                {
+                    return RedirectToAction("List", "AdminUsers");
+                }
+            }
+            return View();
+        }
     }
 }
