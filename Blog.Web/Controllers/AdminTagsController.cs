@@ -29,6 +29,11 @@ namespace Blog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
+            ValidateAddTagRequest(addTagRequest);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             //creating a new Tag object with values of VM object's properties (mapping)
             Tag tag = new Tag
             {
@@ -112,6 +117,14 @@ namespace Blog.Web.Controllers
                 //show an error notification
             }
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
+        }
+
+        private void ValidateAddTagRequest(AddTagRequest addTagRequest)
+        {
+            if (addTagRequest.Name != null && addTagRequest.DisplayName != null && addTagRequest.Name == addTagRequest.DisplayName)
+            {
+                ModelState.AddModelError("DisplayName", "Name cannot be the same as Display Name");
+            }
         }
     }
 }
